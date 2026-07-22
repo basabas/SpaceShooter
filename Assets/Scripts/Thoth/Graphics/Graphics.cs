@@ -21,7 +21,7 @@ namespace Bas.Thoth
         private static readonly int _frameInfoBufferID = Shader.PropertyToID("frameInfoBuffer");
         private const int _frameInfoStride = 20;
 
-        private static readonly Bounds Bounds = new Bounds(Vector3.zero, Vector3.one * 100_000);
+        private static readonly UnityEngine.Bounds Bounds = new UnityEngine.Bounds(Vector3.zero, Vector3.one * 100_000);
 
         private Material _material;
         private ComputeBuffer _entityBuffer;

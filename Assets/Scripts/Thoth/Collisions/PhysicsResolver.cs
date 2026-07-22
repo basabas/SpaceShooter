@@ -55,7 +55,7 @@ namespace Bas.Thoth
             PhysicsInformation aPhysics = _physics[a];
             PhysicsInformation bPhysics = _physics[b];
 
-            float distance = UnityEngine.Mathf.Sqrt(result.distanceSq);
+            float distance = Math.Sqrt(result.distanceSq);
 
             float overlap = 0.5f * (distance - result.maxDistance);
 

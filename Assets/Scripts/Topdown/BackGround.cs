@@ -33,23 +33,23 @@ namespace Bas.Thoth.Topdown
 
             for (int i = 0; i < _starAmount; i++)
             {
-                float random = Mathf.Pow(Random.Range(0, 1f), 2);
-                float scale = Mathf.Lerp(_starMinSize, _starMaxSize, random);
+                float random = Math.Pow(Random.Range(0, 1f), 2);
+                float scale = Math.Lerp(_starMinSize, _starMaxSize, random);
 
-                float distributionX = Mathf.Lerp(World.CameraMaxWidth * 0.5f, World.CameraMaxWidth * 0.8f, random);
-                float distributionY = Mathf.Lerp(World.CameraMaxWidth * 0.5f, World.CameraMaxWidth * 0.8f, random);
+                float distributionX = Math.Lerp(World.CameraMaxWidth * 0.5f, World.CameraMaxWidth * 0.8f, random);
+                float distributionY = Math.Lerp(World.CameraMaxWidth * 0.5f, World.CameraMaxWidth * 0.8f, random);
 
                 float x = Random.Range(-distributionX, distributionX);
                 float y = Random.Range(-distributionY, distributionY);
 
-                float xx = Mathf.Pow(x / distributionX + 1, 2);
+                float xx = Math.Pow(x / distributionX + 1, 2);
                 float yy = y / distributionY + Random.Range(0, 1f);
-                xx = Mathf.Pow(xx, 2);
+                xx = Math.Pow(xx, 2);
                 xx *= 50;
                 yy *= 2f;
 
                 float perlin = Mathf.PerlinNoise(xx, yy) * Mathf.PerlinNoise(yy, xx);
-                perlin = Mathf.Sqrt(perlin);
+                perlin = Math.Sqrt(perlin);
                 const float colorStrenght = 0.2f;
                 perlin *= colorStrenght;
                 Color color = new Color(colorStrenght - perlin, perlin, colorStrenght - perlin, .25f);
@@ -84,9 +84,9 @@ namespace Bas.Thoth.Topdown
             for (int i = 0; i < _stars.Count; i++)
             {
                 Transform starTransform = _transformComponent[_stars[i]];
-                float delta = Mathf.InverseLerp(_starMinSize, _starMaxSize, starTransform.scale);
+                float delta = Math.InverseLerp(_starMinSize, _starMaxSize, starTransform.scale);
 
-                delta = Mathf.Lerp(.99f, .98f, delta);
+                delta = Math.Lerp(.99f, .98f, delta);
 
                 starTransform.x += xDif * delta;
                 starTransform.y += yDif * delta;

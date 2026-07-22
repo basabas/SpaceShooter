@@ -23,7 +23,7 @@ namespace Bas.Thoth.Editor
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             SerializedProperty frames = property.FindPropertyRelative("frames");
-            return (4 + (frames.isExpanded? (Mathf.Max(1,frames.arraySize)*1.1f+1.8f):0)) * EditorGUIUtility.singleLineHeight;
+            return (4 + (frames.isExpanded ? (Math.Max(1, frames.arraySize) * 1.1f + 1.8f) : 0)) * EditorGUIUtility.singleLineHeight;
         }
     }
 }

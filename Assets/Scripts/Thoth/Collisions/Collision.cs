@@ -1,6 +1,5 @@
 using Bas.Thoth.Models;
 using System.Threading.Tasks;
-using UnityEngine;
 using Collider = Bas.Thoth.Models.Collider;
 using Transform = Bas.Thoth.Models.Transform;
 
@@ -43,21 +42,21 @@ namespace Bas.Thoth
             _intervalTimer += deltaTime;
             if (_intervalTimer > 15)
             {
-                if (Mathf.Abs(_currentAmount - _lastAmount) > _currentAmount / 400)
+                if (Math.Abs(_currentAmount - _lastAmount) > _currentAmount / 400)
                 {
                     if (_currentAmount < _lastAmount)
                     {
                         _sign = -_sign;
                     }
-                    _entitiesPerArea = Mathf.Clamp(_entitiesPerArea + _sign, 5, _currentAmount);
+                    _entitiesPerArea = Math.Clamp(_entitiesPerArea + _sign, 5, _currentAmount);
                 }
                 _lastAmount = _currentAmount;
                 _intervalTimer = 0;
             }
 
             _grid.Clear();
-            _grid.AreaCount = Mathf.Max(1, Count / Mathf.Clamp(_entitiesPerArea, 1, int.MaxValue));
-            _grid.SetBounds(new Bounds(Vector3.zero, new Vector3(World.Width, World.Height) * 2));
+            _grid.AreaCount = Math.Max(1, Count / Math.Clamp(_entitiesPerArea, 1, int.MaxValue));
+            _grid.SetBounds(new Bounds(World.Width, World.Height * 2));
 
             _collisionBuffer.Resize(_grid.AreaCount);
             _overlapBuffer.Resize(_grid.AreaCount);

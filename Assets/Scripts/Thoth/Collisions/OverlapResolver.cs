@@ -133,8 +133,8 @@ namespace Bas.Thoth
             result.differenceX = aTransform.x - rectCenterX;
             result.differenceY = aTransform.y - rectCenterY;
 
-            result.x = rectCenterX + UnityEngine.Mathf.Clamp(result.differenceX, -halfWidth, halfWidth);
-            result.y = rectCenterY + UnityEngine.Mathf.Clamp(result.differenceY, -halfHeight, halfHeight);
+            result.x = rectCenterX + Math.Clamp(result.differenceX, -halfWidth, halfWidth);
+            result.y = rectCenterY + Math.Clamp(result.differenceY, -halfHeight, halfHeight);
 
             result.normalX = aTransform.x - result.x;
             result.normalY = aTransform.y - result.y;
@@ -145,7 +145,7 @@ namespace Bas.Thoth
                 return false;
             }
 
-            float dist = UnityEngine.Mathf.Sqrt(result.distanceSq);
+            float dist = Math.Sqrt(result.distanceSq);
             result.penetration = radius - dist;
             if (result.penetration <= 0f)
             {
@@ -170,8 +170,8 @@ namespace Bas.Thoth
             result.differenceX = bTransform.x - aTransform.x;
             result.differenceY = bTransform.y - aTransform.y;
 
-            float overlapX = halfWidthA + halfWidthB - UnityEngine.Mathf.Abs(result.differenceX);
-            float overlapY = halfHeightA + halfHeightB - UnityEngine.Mathf.Abs(result.differenceY);
+            float overlapX = halfWidthA + halfWidthB - Math.Abs(result.differenceX);
+            float overlapY = halfHeightA + halfHeightB - Math.Abs(result.differenceY);
 
             if (overlapX <= 0f || overlapY <= 0f)
             {

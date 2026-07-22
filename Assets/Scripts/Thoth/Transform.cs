@@ -1,5 +1,3 @@
-using System;
-
 namespace Bas.Thoth.Models
 {
     public struct Transform
@@ -15,7 +13,7 @@ namespace Bas.Thoth.Models
             float x2 = b.x;
             float y1 = a.y;
             float y2 = b.y;
-            return (float)Math.Sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+            return Math.Sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
         }
 
         public override string ToString() => $"Transform[x:{x}, y:{y}, rot:{rotation}, scale:{scale}]";

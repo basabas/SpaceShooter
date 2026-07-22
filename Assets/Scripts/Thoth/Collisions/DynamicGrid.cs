@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿using Bas.Thoth.Models;
 
 namespace Bas.Thoth
 {
@@ -13,7 +13,7 @@ namespace Bas.Thoth
             get => _width * _height;
             set
             {
-                _width = Mathf.Clamp(Mathf.CeilToInt(Mathf.Sqrt(value)), 1, _maxWidth);
+                _width = Math.Clamp(Math.CeilToInt(Math.Sqrt(value)), 1, _maxWidth);
                 _height = (value / _width);
             }
         }
@@ -70,8 +70,8 @@ namespace Bas.Thoth
 
         public void SetBounds(Bounds bounds)
         {
-            _xBounds = bounds.extents.x;
-            _yBounds = bounds.extents.y;
+            _xBounds = bounds.width / 2;
+            _yBounds = bounds.height / 2;
             _areaWidth = _xBounds * 2 / _width;
             _areaHeight = _yBounds * 2 / _height;
         }
