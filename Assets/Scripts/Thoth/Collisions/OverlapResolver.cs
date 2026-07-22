@@ -1,18 +1,17 @@
-using Bas.Thoth;
 using Bas.Thoth.Models;
 
 namespace Bas.Thoth
 {
-    public class OverlapResolver
+    public class OverlapResolver : IInit
     {
         private const float MinDistanceSq = 0.0001f;
 
         public Collision _collision;
         public TransformComponent _transforms;
 
-        public OverlapResolver(Collision collision)
+        public void Init()
         {
-            _collision = collision;
+            _collision = Singletons.Get<Collision>();
             _transforms = Singletons.Get<TransformComponent>();
         }
 
@@ -53,6 +52,24 @@ namespace Bas.Thoth
             a.MinY <= b.MaxY &&
             a.MaxY >= b.MinY;
 
+        public bool Overlaps(int entityA, int entityB, out CollisionResult result)
+        {
+            Collider aCollider = _collision[entityA];
+            Collider bCollider = _collision[entityB];
+
+            result = new CollisionResult();
+
+            if (!AabbOverlap(aCollider, bCollider))
+            {
+                return false;
+            }
+
+            Transform aTransform = _transforms[entityA];
+            Transform bTransform = _transforms[entityB];
+
+            return Overlaps(aCollider, bCollider, aTransform, bTransform, ref result);
+        }
+
         public bool Overlaps(Collider aCollider, Collider bCollider, Transform aTransform, Transform bTransform, ref CollisionResult result)
         {
             // Circle - Circle
@@ -81,8 +98,6 @@ namespace Bas.Thoth
             // Custom or unsupported shapes: treat as no overlap for now.
             return false;
         }
-
-
 
         private bool CircleCircleOverlap(Collider aCollider, Collider bCollider, Transform aTransform, Transform bTransform, ref CollisionResult result)
         {

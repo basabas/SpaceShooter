@@ -46,9 +46,16 @@ namespace Bas.Thoth.Topdown
 
         public int CreateBackground() => CreateEntity(typeof(BackGround));
 
-        public int CreateMissile(float x, float y, float rot, float xVelocity, float yVelocity, float scale)
+        public int CreateMissile(float x, float y, int targetId, float scale)
         {
             int id = CreateEntity("Missile");
+
+            Transform target = Singletons.Get<TransformComponent>()[id];
+
+            float dirX = target.x - x;
+            float dirY = target.y - y;
+            float rot = Math.GetAngle(dirX, dirY);
+
             UpdateComponentValue<TransformComponent, Transform>(id, transform =>
             {
                 transform.x = x;
@@ -58,11 +65,20 @@ namespace Bas.Thoth.Topdown
                 return transform;
             });
 
+            (float xNorm, float yNorm) = Math.GetNormalized(dirX, dirY);
+
             UpdateComponentValue<Physics, PhysicsInformation>(id, physics =>
             {
-                physics.xVelocity = xVelocity;
-                physics.yVelocity = yVelocity;
+                float length = Math.GetLenght(physics.xVelocity, physics.yVelocity);
+                physics.xVelocity = xNorm * length;
+                physics.yVelocity = yNorm * length;
                 return physics;
+            });
+
+            UpdateComponentValue<Missile, MissileInformation>(id, missile =>
+            {
+                missile.target = targetId;
+                return missile;
             });
             return id;
         }

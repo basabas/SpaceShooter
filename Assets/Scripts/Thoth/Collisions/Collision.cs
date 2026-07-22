@@ -30,7 +30,7 @@ namespace Bas.Thoth
         public override void Init()
         {
             _grid = new DynamicGrid();
-            _overlapResolver = new OverlapResolver(this);
+            _overlapResolver = Singletons.Get<OverlapResolver>();
             _transforms = Singletons.Get<TransformComponent>();
             _collisionBuffer = new ParallelCollisionBuffer(128);
             _overlapBuffer = new ParallelCollisionBuffer(128);
@@ -80,9 +80,12 @@ namespace Bas.Thoth
 
         public override void UpdateEntity(int entityID, float deltaTime)
         {
-            Transform transform = _transforms[entityID];
             _overlapResolver.UpdateBounds(entityID);
-            _grid.AddEntity(transform, entityID);
+            if (this[entityID].colliderType == ColliderType.None)
+            {
+                return;
+            }
+            _grid.AddEntity(_transforms[entityID], entityID);
         }
 
         private void DoCollisionCheck(int index)

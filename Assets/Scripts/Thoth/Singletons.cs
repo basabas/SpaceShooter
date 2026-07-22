@@ -22,12 +22,13 @@ namespace Bas.Thoth
 
             singleton = _componentType.IsAssignableFrom(type) ? CreateComponent(type) : Activator.CreateInstance(type);
 
+            SetSingleton(singleton);
+
             if (singleton is IInit init)
             {
                 init.Init();
             }
 
-            SetSingleton(singleton);
             return singleton;
         }
 

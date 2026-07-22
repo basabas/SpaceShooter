@@ -121,7 +121,7 @@ namespace Bas.Thoth.Editor
                 throw new Exception("This should not be possble, wrong type");
             }
 
-            while (!componentType.FullName.StartsWith("Bas.Thoth.Topdown.Component"))
+            while (!componentType.FullName.StartsWith(typeof(Component).FullName))
             {
                 componentType = componentType.BaseType;
             }
