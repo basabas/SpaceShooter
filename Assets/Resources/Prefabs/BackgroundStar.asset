@@ -15,17 +15,17 @@ MonoBehaviour:
   id: 0
   types:
     keys:
-    - typeName: Bas.Game.Topdown.TransformComponent
+    - typeName: Bas.Thoth.TransformComponent
       assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    - typeName: Bas.Game.Topdown.Graphics
+    - typeName: Bas.Thoth.Graphics
       assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     values:
     - type:
-        typeName: Bas.Game.Topdown.Models.Transform
+        typeName: Bas.Thoth.Models.Transform
         assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       json: '{"x":0.0,"y":0.0,"rotation":0.0,"scale":1.0}'
     - type:
-        typeName: Bas.Game.Topdown.Models.DrawInformation
+        typeName: Bas.Thoth.Models.DrawInformation
         assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       json: '{"textureIndex":4,"color":{"r":1.0,"g":1.0,"b":1.0,"a":1.0}}'
   graphicsInformation:

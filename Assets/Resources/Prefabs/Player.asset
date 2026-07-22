@@ -15,33 +15,33 @@ MonoBehaviour:
   id: 0
   types:
     keys:
-    - typeName: Bas.Game.Topdown.Physics
+    - typeName: Bas.Thoth.Physics
       assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    - typeName: Bas.Game.Topdown.Graphics
+    - typeName: Bas.Thoth.Graphics
       assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    - typeName: Bas.Game.Topdown.TransformComponent
+    - typeName: Bas.Thoth.TransformComponent
       assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    - typeName: Bas.Game.Topdown.Collision
+    - typeName: Bas.Thoth.Collision
       assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    - typeName: Bas.Game.Topdown.CameraComponent
+    - typeName: Bas.Thoth.Topdown.CameraComponent
       assemblyName: Bas.Topdown, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    - typeName: Bas.Game.Topdown.Player
+    - typeName: Bas.Thoth.Topdown.Player
       assemblyName: Bas.Topdown, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     values:
     - type:
-        typeName: Bas.Game.Topdown.Models.PhysicsInformation
+        typeName: Bas.Thoth.Models.PhysicsInformation
         assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       json: '{"xVelocity":0.0,"yVelocity":0.0,"xAcceleration":0.0,"yAcceleration":0.0,"rotVelocity":0.0,"rotAcceleration":0.0,"mass":1.0,"bounciness":0.0,"linearDrag":5.0}'
     - type:
-        typeName: Bas.Game.Topdown.Models.DrawInformation
+        typeName: Bas.Thoth.Models.DrawInformation
         assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       json: '{"textureIndex":0,"color":{"r":1.0,"g":1.0,"b":1.0,"a":1.0}}'
     - type:
-        typeName: Bas.Game.Topdown.Models.Transform
+        typeName: Bas.Thoth.Models.Transform
         assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       json: '{"x":0.0,"y":0.0,"rotation":0.0,"scale":50.0}'
     - type:
-        typeName: Bas.Game.Topdown.Models.Collider
+        typeName: Bas.Thoth.Models.Collider
         assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       json: '{"radius":2.0,"width":0.0,"height":0.0,"colliderShape":0,"colliderType":0,"MinX":0.0,"MaxX":0.0,"MinY":0.0,"MaxY":0.0}'
     - type:

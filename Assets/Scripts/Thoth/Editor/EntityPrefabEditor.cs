@@ -207,14 +207,6 @@ namespace Bas.Thoth.Editor
             string assemblyName = serializableTypeProperty.FindPropertyRelative("assemblyName").stringValue;
             string typeName = serializableTypeProperty.FindPropertyRelative("typeName").stringValue;
 
-
-            //TEMP to fix the namespace issue:
-            if (typeName.StartsWith("Bas.Game"))
-            {
-                UnityEngine.Debug.LogError("ha!");
-            }
-
-
             Type type;
             try
             {
@@ -231,10 +223,9 @@ namespace Bas.Thoth.Editor
             if (ReflectionTools.TryGetType(typeName, out type))
             {
                 serializableTypeProperty.FindPropertyRelative("assemblyName").stringValue = type.Assembly.FullName;
+                serializableTypeProperty.FindPropertyRelative("typeName").stringValue = typeName;
                 return type;
             }
-
-
 
             UnityEngine.Debug.LogError($"Failed to get: assemblyName:{assemblyName}, typeName:{typeName}.");
 

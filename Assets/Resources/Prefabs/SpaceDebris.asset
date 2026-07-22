@@ -15,25 +15,25 @@ MonoBehaviour:
   id: 0
   types:
     keys:
-    - typeName: Bas.Game.Topdown.TransformComponent
+    - typeName: Bas.Thoth.TransformComponent
       assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    - typeName: Bas.Game.Topdown.Graphics
+    - typeName: Bas.Thoth.Graphics
       assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    - typeName: Bas.Game.Topdown.Physics
+    - typeName: Bas.Thoth.Physics
       assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    - typeName: Bas.Game.Topdown.SpaceDebrisComponent
+    - typeName: Bas.Thoth.Topdown.SpaceDebrisComponent
       assemblyName: Bas.Topdown, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     values:
     - type:
-        typeName: Bas.Game.Topdown.Models.Transform
+        typeName: Bas.Thoth.Models.Transform
         assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       json: '{"x":0.0,"y":0.0,"rotation":0.0,"scale":1.0}'
     - type:
-        typeName: Bas.Game.Topdown.Models.DrawInformation
+        typeName: Bas.Thoth.Models.DrawInformation
         assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       json: '{"textureIndex":3,"color":{"r":1.0,"g":1.0,"b":1.0,"a":1.0}}'
     - type:
-        typeName: Bas.Game.Topdown.Models.PhysicsInformation
+        typeName: Bas.Thoth.Models.PhysicsInformation
         assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       json: '{"xVelocity":0.0,"yVelocity":0.0,"xAcceleration":0.0,"yAcceleration":0.0,"rotVelocity":0.0,"rotAcceleration":0.0,"mass":1.0,"bounciness":0.0,"linearDrag":0.0}'
     - type:
