@@ -1,0 +1,16 @@
+{
+    "name": "Bas.Debug",
+    "rootNamespace": "",
+    "references": [
+        "GUID:240520931ba77274eb9451487280ce7e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

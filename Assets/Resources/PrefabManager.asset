@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb2477d9783e28b41aa0df4535cba44c, type: 3}
+  m_Name: PrefabManager
+  m_EditorClassIdentifier: Bas::Bas.Game.Topdown.PrefabManager
+  prefabs:
+  - {fileID: 11400000, guid: b8d317a16d6c52942a84e0200a467b1d, type: 2}
+  - {fileID: 11400000, guid: 2fb959e985c81244d988beef0ebf72d0, type: 2}
+  - {fileID: 11400000, guid: 6518fd8a3e1f9964d835a753cd1ea79e, type: 2}
+  - {fileID: 11400000, guid: 808ea93d3fe107a4fbfbf1d7695c4223, type: 2}
+  - {fileID: 11400000, guid: 0ffa2c8a3bc960441a8ac1fadf53e61a, type: 2}

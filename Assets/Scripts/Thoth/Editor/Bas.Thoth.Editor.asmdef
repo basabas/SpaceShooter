@@ -1,0 +1,20 @@
+{
+    "name": "Bas.Thoth.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ab0f27fb0a8827b4fac616e259d1fcd9",
+        "GUID:240520931ba77274eb9451487280ce7e",
+        "GUID:32094caf151a4224c8e95b09ff91e5ca"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

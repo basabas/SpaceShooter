@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b5a9ec30d3fdee45b16760c890c79d5, type: 3}
+  m_Name: Player
+  m_EditorClassIdentifier: Bas::Bas.Thoth.Entity
+  id: 0
+  types:
+    keys:
+    - typeName: Bas.Game.Topdown.Physics
+      assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - typeName: Bas.Game.Topdown.Graphics
+      assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - typeName: Bas.Game.Topdown.TransformComponent
+      assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - typeName: Bas.Game.Topdown.Collision
+      assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - typeName: Bas.Game.Topdown.CameraComponent
+      assemblyName: Bas.Topdown, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - typeName: Bas.Game.Topdown.Player
+      assemblyName: Bas.Topdown, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    values:
+    - type:
+        typeName: Bas.Game.Topdown.Models.PhysicsInformation
+        assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      json: '{"xVelocity":0.0,"yVelocity":0.0,"xAcceleration":0.0,"yAcceleration":0.0,"rotVelocity":0.0,"rotAcceleration":0.0,"mass":1.0,"bounciness":0.0,"linearDrag":5.0}'
+    - type:
+        typeName: Bas.Game.Topdown.Models.DrawInformation
+        assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      json: '{"textureIndex":0,"color":{"r":1.0,"g":1.0,"b":1.0,"a":1.0}}'
+    - type:
+        typeName: Bas.Game.Topdown.Models.Transform
+        assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      json: '{"x":0.0,"y":0.0,"rotation":0.0,"scale":50.0}'
+    - type:
+        typeName: Bas.Game.Topdown.Models.Collider
+        assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      json: '{"radius":2.0,"width":0.0,"height":0.0,"colliderShape":0,"colliderType":0,"MinX":0.0,"MaxX":0.0,"MinY":0.0,"MaxY":0.0}'
+    - type:
+        typeName: Bas.Game.Topdown.Models.Collider
+        assemblyName: Bas, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      json: 
+    - type:
+        typeName: Bas.Game.Topdown.Models.Collider
+        assemblyName: Bas, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      json: 
+  graphicsInformation:
+    fps: 0
+    frames:
+    - {fileID: 2800000, guid: ff1c997e950fd05418907de3beeeef94, type: 3}
+    width: 0.657
+    height: 1.134

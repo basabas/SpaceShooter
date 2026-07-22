@@ -1,0 +1,19 @@
+{
+    "name": "Bas",
+    "rootNamespace": "",
+    "references": [
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:f07e5347e13a2e24f888f397d9917a25",
+        "GUID:ce145b14b87e1b044b10940a22ebfb15",
+        "GUID:240520931ba77274eb9451487280ce7e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

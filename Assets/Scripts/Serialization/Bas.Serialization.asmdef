@@ -1,0 +1,16 @@
+{
+    "name": "Bas.Serialization",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ab0f27fb0a8827b4fac616e259d1fcd9"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
