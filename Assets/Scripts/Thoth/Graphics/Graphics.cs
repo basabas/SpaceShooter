@@ -104,8 +104,6 @@ namespace Bas.Thoth
                     _material.SetBuffer(_drawInfoBufferID, _drawInfoBuffer);
                 }
 
-                //Debug.LogError($"{_sortedEntities}");
-
                 _entityBuffer.SetData(_sortedEntities.Entities, 0, 0, _sortedEntities.Count);
                 _transformBuffer.SetData(_transforms.Values, 0, 0, _transforms.Values.Length);
                 _drawInfoBuffer.SetData(Values, 0, 0, Values.Length);

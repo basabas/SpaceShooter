@@ -1,3 +1,4 @@
+using Bas.Debug;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace Bas.Thoth
         {
             if (componentTypes.Length == 0)
             {
-                UnityEngine.Debug.LogError("There is no reason to create an entity without components...");
+                Logging.LogError("There is no reason to create an entity without components...");
             }
             int entityID = _entities.CreateEntity();
 
@@ -39,7 +40,7 @@ namespace Bas.Thoth
         {
             if (prefab.Types.Count == 0)
             {
-                UnityEngine.Debug.LogError("There is no reason to create an entity without components...");
+                Logging.LogError("There is no reason to create an entity without components...");
             }
             int entityID = _entities.CreateEntity();
 

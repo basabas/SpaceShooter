@@ -1,4 +1,5 @@
-﻿using Bas.Utils.Reflection;
+﻿using Bas.Debug;
+using Bas.Utils.Reflection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,12 +37,12 @@ namespace Bas.Thoth
 
             if (derivedTypes.Count() == 0)
             {
-                UnityEngine.Debug.LogError($"Could not find an instance of {type.FullName}");
+                Logging.LogError($"Could not find an instance of {type.FullName}");
                 return null;
             }
             else if (derivedTypes.Count() > 1)
             {
-                UnityEngine.Debug.LogWarning($"Found more than 1 instance of {type.FullName}: {string.Join(',', derivedTypes.Select(t => t.Name))}. Choosing the first:{derivedTypes.First().Name}");
+                Logging.LogWarning($"Found more than 1 instance of {type.FullName}: {string.Join(',', derivedTypes.Select(t => t.Name))}. Choosing the first:{derivedTypes.First().Name}");
             }
 
             return Get(derivedTypes.First());

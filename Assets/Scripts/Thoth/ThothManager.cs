@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Bas.Debug;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Bas.Thoth
@@ -22,7 +23,7 @@ namespace Bas.Thoth
             PrefabManager prefabManager = Resources.Load<PrefabManager>("PrefabManager");
             if (!prefabManager.InitializePrefabs(out prefabs, out atlas))
             {
-                Debug.LogError("YEAH. Nothing worked haha");
+                Logging.LogError("YEAH. Nothing worked haha");
                 return;
             }
 

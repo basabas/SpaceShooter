@@ -26,10 +26,6 @@
             {
                 _indexes[Count++] = index;
             }
-            //else
-            //{
-            //    Debug.LogError($"Out of space: gridArea[{_index}] Count:{Count}, _maxCount:{_maxCount}");
-            //}
         }
 
         public void RemoveAt(int i)

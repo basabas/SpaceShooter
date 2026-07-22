@@ -1,3 +1,4 @@
+using Bas.Debug;
 using Bas.Serialization.Editor;
 using Bas.Thoth.Models;
 using Bas.Utils.Reflection;
@@ -75,7 +76,7 @@ namespace Bas.Thoth.Editor
                 Type type = GetSerializableType(keys.GetArrayElementAtIndex(removeIndex));
                 if (type == typeof(Graphics))
                 {
-                    Debug.LogError("YEAH, removing graphics, we need to Clear the GraphicsInformation");
+                    Logging.LogError("YEAH, removing graphics, we need to Clear the GraphicsInformation");
                 }
 
                 keys.DeleteArrayElementAtIndex(removeIndex);
@@ -130,7 +131,7 @@ namespace Bas.Thoth.Editor
                 Type[] genericTypeArguments = componentType.GenericTypeArguments;
                 if (genericTypeArguments.Length > 1)
                 {
-                    Debug.LogWarning("GenericArguments should never be not 1, ignoring the other arguments");
+                    Logging.LogWarning("GenericArguments should never be not 1, ignoring the other arguments");
                 }
                 SetNewAnything(anything, genericTypeArguments[0]);
             }
@@ -227,7 +228,7 @@ namespace Bas.Thoth.Editor
                 return type;
             }
 
-            UnityEngine.Debug.LogError($"Failed to get: assemblyName:{assemblyName}, typeName:{typeName}.");
+            Logging.LogError($"Failed to get: assemblyName:{assemblyName}, typeName:{typeName}.");
 
             throw new Exception("Sumting wong");
         }
