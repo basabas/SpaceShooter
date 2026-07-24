@@ -4,6 +4,8 @@ using Bas.Thoth.Models;
 using Bas.Utils.Reflection;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
@@ -53,7 +55,10 @@ namespace Bas.Thoth.Editor
                 GUILayout.Space(2);
                 Type type = GetSerializableType(component);
 
-                GUILayout.Label(type.Name, CenteredComponentStyle);
+                if (GUILayout.Button(type.Name, CenteredComponentStyle))
+                {
+                    OpenScriptInEditor(type);
+                }
 
                 GUILayout.Space(2);
                 if (GUILayout.Button("x", DisposeButtonStyle))
@@ -94,6 +99,25 @@ namespace Bas.Thoth.Editor
             GUILayout.Space(40);
             EditorGUILayout.EndHorizontal();
             serializedObject.ApplyModifiedProperties();
+        }
+
+        private void OpenScriptInEditor(Type type)
+        {
+            IEnumerable<string> paths = AssetDatabase.FindAssets($"t:Script {type.Name}").Select(AssetDatabase.GUIDToAssetPath);
+            string path = paths.FirstOrDefault(path => Path.GetFileNameWithoutExtension(path).Equals(type.Name));
+
+            if (path != null)
+            {
+                MonoScript asset = AssetDatabase.LoadAssetAtPath<MonoScript>(path);
+                if (asset != null)
+                {
+                    AssetDatabase.OpenAsset(asset);
+                }
+            }
+            else
+            {
+                Logging.LogError($"[{type.Name}]Could not find a script with the exact name {type.Name}");
+            }
         }
 
         private void AddComponent(Type componentType)

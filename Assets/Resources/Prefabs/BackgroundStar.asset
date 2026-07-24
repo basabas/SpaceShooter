@@ -27,7 +27,7 @@ MonoBehaviour:
     - type:
         typeName: Bas.Thoth.Models.DrawInformation
         assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      json: '{"textureIndex":4,"color":{"r":1.0,"g":1.0,"b":1.0,"a":1.0}}'
+      json: '{"textureIndex":0,"color":{"r":1.0,"g":1.0,"b":1.0,"a":1.0}}'
   graphicsInformation:
     fps: 0
     frames:
