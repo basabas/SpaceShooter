@@ -22,6 +22,12 @@ namespace Bas.Thoth.Topdown
         public override void UpdateEntity(int id, float deltaTime)
         {
             int targetId = this[id].target;
+            if (!_entities.IsAlive(targetId))
+            {
+                _entities.DestroyEntity(id);
+                return;
+            }
+
             Transform target = _transformComponent[targetId];
             Transform transform = _transformComponent[id];
             PhysicsInformation physics = _physicsComponent[id];

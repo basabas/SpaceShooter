@@ -2,6 +2,8 @@ namespace Bas.Thoth
 {
     public static class Math
     {
+        public const float PI = 3.141592653589793238462643383279502884197169f;
+        private const double pi = 3.141592653589793238462643383279502884197169;
         public static float GetAngle(float x, float y) => (float)System.Math.Atan2(-x, y);
 
         public static float GetLenght(float x, float y) => (float)System.Math.Sqrt(x * x + y * y);
@@ -64,11 +66,22 @@ namespace Bas.Thoth
         }
 
         public static int CeilToInt(float x) => ((int)x) + 1;
+
+        public static int RoudToInt(float x) => (int)(x + 0.5f);
         public static int FloorToInt(float x) => (int)x;
 
         public static float Pow(float x, int y) => (float)System.Math.Pow(x, y);
 
         public static float Lerp(float start, float goal, float progress) => start + (goal - start) * progress;
+        public static int Lerp(int start, int goal, float progress) => start + FloorToInt((goal - start) * progress);
         public static float InverseLerp(float a, float b, float value) => a == b ? 0 : Clamp01((value - a) / (b - a));
+
+        public static (float, float) RotatePoint(float x, float y, float cx, float cy, float degrees)
+        {
+            double radians = -pi * degrees / 180d;
+            float xx = (float)((x - cx) * System.Math.Cos(radians) - (y - cy) * System.Math.Sin(radians) + cx);
+            float yy = (float)((x - cx) * System.Math.Sin(radians) + (y - cy) * System.Math.Cos(radians) + cy);
+            return (xx, yy);
+        }
     }
 }

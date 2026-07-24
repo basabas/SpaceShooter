@@ -7,6 +7,7 @@ namespace Bas.Thoth
     public class Entities
     {
         private int[] _entities = new int[10_000];
+        private bool[] _alive = new bool[10_000];
 
         private readonly Dictionary<int, int> _indexLookup = new Dictionary<int, int>();
 
@@ -27,6 +28,12 @@ namespace Bas.Thoth
             }
 
             int id = _availableIDs.Pop();
+
+            if (id >= _alive.Length)
+            {
+                Array.Resize(ref _alive, id + 1);
+            }
+            _alive[id] = true;
 
             if (Count == _entities.Length - 1)
             {
@@ -61,7 +68,17 @@ namespace Bas.Thoth
 
         public void DestroyEntity(int entityID)
         {
+            _alive[entityID] = false;
             RemoveList.Add(entityID);
+        }
+
+        public bool IsAlive(int entityID)
+        {
+            if (entityID < 0 || entityID >= _alive.Length)
+            {
+                throw new IndexOutOfRangeException($"Entity ID {entityID} is out of range. Valid range is 0 to {_alive.Length - 1}.");
+            }
+            return _alive[entityID];
         }
 
         public override string ToString()

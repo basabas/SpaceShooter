@@ -43,7 +43,7 @@ MonoBehaviour:
     - type:
         typeName: Bas.Thoth.Models.Collider
         assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      json: '{"radius":2.0,"width":0.0,"height":0.0,"colliderShape":0,"colliderType":0,"MinX":0.0,"MaxX":0.0,"MinY":0.0,"MaxY":0.0}'
+      json: '{"radius":1.2000000476837159,"width":0.0,"height":0.0,"colliderShape":0,"colliderType":0,"MinX":0.0,"MaxX":0.0,"MinY":0.0,"MaxY":0.0}'
     - type:
         typeName: Bas.Game.Topdown.Models.Collider
         assemblyName: Bas, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null

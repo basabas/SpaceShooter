@@ -13,6 +13,7 @@ namespace Bas.Thoth.Topdown
 
         private const float _starMinSize = 1;
         private const float _starMaxSize = 2;
+        private const float _starAlpha = .9f;
 
         private const float _debrisMinSize = 6;
         private const float _debrisMaxSize = 20;
@@ -20,6 +21,7 @@ namespace Bas.Thoth.Topdown
 
         private List<int> _stars = new List<int>();
 
+        private RandomColorPicker _colorPicker;
         private TopdownFactory _factory;
         private TransformComponent _transformComponent;
 
@@ -28,31 +30,30 @@ namespace Bas.Thoth.Topdown
 
         public override void Init()
         {
+            _colorPicker = new RandomColorPicker("Art/Space2");
             _factory = Singletons.Get<TopdownFactory>();
             _transformComponent = Singletons.Get<TransformComponent>();
+
+            float xColorOffset = Random.Range(0, .6f);
+            float yColorOffset = Random.Range(0, .6f);
 
             for (int i = 0; i < _starAmount; i++)
             {
                 float random = Math.Pow(Random.Range(0, 1f), 2);
                 float scale = Math.Lerp(_starMinSize, _starMaxSize, random);
 
-                float distributionX = Math.Lerp(World.CameraMaxWidth * 0.5f, World.CameraMaxWidth * 0.8f, random);
-                float distributionY = Math.Lerp(World.CameraMaxWidth * 0.5f, World.CameraMaxWidth * 0.8f, random);
+                float distributionX = Math.Lerp(World.CameraMaxWidth * .5f, World.CameraMaxWidth * .8f, random);
+                float distributionY = Math.Lerp(World.CameraMaxWidth * .5f, World.CameraMaxWidth * .8f, random);
 
                 float x = Random.Range(-distributionX, distributionX);
                 float y = Random.Range(-distributionY, distributionY);
 
-                float xx = Math.Pow(x / distributionX + 1, 2);
-                float yy = y / distributionY + Random.Range(0, 1f);
-                xx = Math.Pow(xx, 2);
-                xx *= 50;
-                yy *= 2f;
+                float xx = (x + distributionX) / 5f;
+                float yy = (y + distributionY) / 5f;
 
-                float perlin = Mathf.PerlinNoise(xx, yy) * Mathf.PerlinNoise(yy, xx);
-                perlin = Math.Sqrt(perlin);
-                const float colorStrenght = 0.2f;
-                perlin *= colorStrenght;
-                Color color = new Color(colorStrenght - perlin, perlin, colorStrenght - perlin, .25f);
+                Color color = _colorPicker.GetColor(xColorOffset + xx / distributionX, yColorOffset + yy / distributionY);
+                color.a = _starAlpha;
+
                 _stars.Add(_factory.CreateBackgroundStar(x, y, scale, color));
             }
             float debrisDistributionSize = World.CameraMaxWidth * .6f;
