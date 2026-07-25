@@ -8,8 +8,8 @@ namespace Bas.Thoth.Topdown
     //TODO: magic numbers
     public class BackGround : Component
     {
-        private const int _starAmount = 8_000;//8_000
-        private const int _debrisAmount = 20;//20
+        private const int _starAmount = 16_000;//8_000
+        private const int _debrisAmount = 80;//20
 
         private const float _starMinSize = 1;
         private const float _starMaxSize = 2;

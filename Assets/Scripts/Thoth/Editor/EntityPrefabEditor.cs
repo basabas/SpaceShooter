@@ -242,19 +242,16 @@ namespace Bas.Thoth.Editor
             }
             catch (WrongAssemblyException)
             {
+                //Hail mary but it helps if namespaces have been updated
+                if (ReflectionTools.TryGetType(typeName, out type))
+                {
+                    serializableTypeProperty.FindPropertyRelative("assemblyName").stringValue = type.Assembly.FullName;
+                    serializableTypeProperty.FindPropertyRelative("typeName").stringValue = typeName;
+                    return type;
+                }
             }
 
-            //Hail mary but it helps if namespaces have been updated
-            if (ReflectionTools.TryGetType(typeName, out type))
-            {
-                serializableTypeProperty.FindPropertyRelative("assemblyName").stringValue = type.Assembly.FullName;
-                serializableTypeProperty.FindPropertyRelative("typeName").stringValue = typeName;
-                return type;
-            }
-
-            Logging.LogError($"Failed to get: assemblyName:{assemblyName}, typeName:{typeName}.");
-
-            throw new Exception("Sumting wong");
+            throw new Exception($"Failed to get: assemblyName:{assemblyName}, typeName:{typeName}.");
         }
     }
 }

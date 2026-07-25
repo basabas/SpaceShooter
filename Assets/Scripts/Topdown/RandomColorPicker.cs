@@ -20,8 +20,8 @@ namespace Bas.Thoth.Topdown
         public Color GetColor(float normalizedX, float normalizedY)
         {
             (float rotatedX, float rotatedY) = Math.RotatePoint(normalizedX, normalizedY, .5f, .5f, _rotation);
-            int x = Math.FloorToInt(_texture.width * Math.Clamp01(rotatedX));
-            int y = Math.FloorToInt(_texture.height * Math.Clamp01(rotatedY));
+            int x = Math.FloorToInt((_texture.width - 1) * Math.Clamp01(rotatedX));
+            int y = Math.FloorToInt((_texture.height - 1) * Math.Clamp01(rotatedY));
             int index = x + y * _texture.width;
             if (index >= _colors.Length)
             {

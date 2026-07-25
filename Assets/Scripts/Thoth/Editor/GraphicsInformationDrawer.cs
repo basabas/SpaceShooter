@@ -18,12 +18,20 @@ namespace Bas.Thoth.Editor
             SerializedProperty frames = property.FindPropertyRelative("frames");
             position.height = frames.arraySize * EditorGUIUtility.singleLineHeight;
             EditorGUI.PropertyField(position, frames);
+            position.y += GetArrayPropertyHeight(frames);
         }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             SerializedProperty frames = property.FindPropertyRelative("frames");
-            return (4 + (frames.isExpanded ? (Math.Max(1, frames.arraySize) * 1.1f + 1.8f) : 0)) * EditorGUIUtility.singleLineHeight;
+            return 3 * EditorGUIUtility.singleLineHeight + GetArrayPropertyHeight(frames);
+        }
+
+        private float GetArrayPropertyHeight(SerializedProperty property)
+        {
+            const float elementHeight = 1.1f;
+            const float restHeight = 1.8f;
+            return (1 + (property.isExpanded ? (Math.Max(1, property.arraySize) * elementHeight + restHeight) : 0)) * EditorGUIUtility.singleLineHeight;
         }
     }
 }

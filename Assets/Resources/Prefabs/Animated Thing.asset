@@ -29,11 +29,11 @@ MonoBehaviour:
         assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       json: '{"textureIndex":1,"color":{"r":1.0,"g":1.0,"b":1.0,"a":1.0}}'
   graphicsInformation:
-    fps: 4
+    fps: 1
     frames:
-    - {fileID: 2800000, guid: 426fdd601f89a8648b8eb40f54807042, type: 3}
-    - {fileID: 2800000, guid: ce3f2b8a7803dcb4183e7ce28f65e5fd, type: 3}
-    - {fileID: 2800000, guid: 52ebe74538bdb9e4c8d6d261b70cf457, type: 3}
-    - {fileID: 2800000, guid: b012224ab922d324eaedeb3b9c0b9c00, type: 3}
+    - {fileID: 762403235, guid: 48cab5718e1608a4d9b1b476bd679681, type: 3}
+    - {fileID: 1494149219, guid: 48cab5718e1608a4d9b1b476bd679681, type: 3}
+    - {fileID: 1676535125, guid: 48cab5718e1608a4d9b1b476bd679681, type: 3}
+    - {fileID: 1768892734, guid: 48cab5718e1608a4d9b1b476bd679681, type: 3}
     width: 1
     height: 1

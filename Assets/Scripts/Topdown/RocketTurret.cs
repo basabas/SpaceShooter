@@ -72,7 +72,7 @@ namespace Bas.Thoth.Topdown
 
         public void Shoot(int targetID, Transform transform)
         {
-            _factory.CreateMissile(transform.x, transform.y, targetID, 1f);
+            _factory.CreateMissile(transform.x, transform.y, targetID, .3f);
         }
     }
 }

@@ -5,11 +5,11 @@ namespace Bas.Thoth
     [CreateAssetMenu(fileName = "New Entity Prefab", menuName = "Thoth/EntityPrefab")]
     public class EntityPrefab : ScriptableObject
     {
-        [SerializeField, HideInInspector] 
+        [SerializeField]
         private int id;
-        [SerializeField, HideInInspector] 
+        [SerializeField]
         private SerializeableTypeDictionary types = new();
-        [SerializeField, HideInInspector] 
+        [SerializeField]
         private GraphicsInformation graphicsInformation;
 
         public GraphicsInformation GraphicsInformation => graphicsInformation;

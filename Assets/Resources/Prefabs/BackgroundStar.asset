@@ -31,6 +31,6 @@ MonoBehaviour:
   graphicsInformation:
     fps: 0
     frames:
-    - {fileID: 2800000, guid: 25c6c18bf9c91a248be1f78a663c6873, type: 3}
+    - {fileID: 21300000, guid: 25c6c18bf9c91a248be1f78a663c6873, type: 3}
     width: 1
     height: 1

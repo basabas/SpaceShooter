@@ -71,6 +71,8 @@ namespace Bas.Thoth
             }
             return builder.ToString();
         }
+
+        public bool HasEntity(int entityID) => _indexLookup.ContainsKey(entityID);
     }
 
     public abstract class Component<T> : Component, ICanSetAnything where T : struct

@@ -5,6 +5,6 @@
         public const int Width = 10_000;
         public const int Height = 10_000;
 
-        public const int CameraMaxWidth = 1920;
+        public const int CameraMaxWidth = 3840;
     }
 }

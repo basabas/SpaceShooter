@@ -30,7 +30,7 @@ namespace Bas.Thoth.Topdown
             Transform transform = _transformComponent[id];
             _cameraTransform.position = new Vector3(transform.x, transform.y, _zValue);
 
-            zoom = Math.Clamp(zoom - Mouse.current.scroll.value.y / 100f, 0.2f, 1);
+            zoom = Math.Clamp(zoom - Mouse.current.scroll.value.y / 100f, 0.1f, 1);
 
             float height = World.CameraMaxWidth / _camera.aspect;
             _camera.orthographicSize = height / 2 * zoom;
