@@ -18,6 +18,7 @@ namespace Bas.Thoth.Topdown
             _entities = Singletons.Get<Entities>();
             _overlapResolver = Singletons.Get<OverlapResolver>();
         }
+
         public override void UpdateEntity(int id, float deltaTime)
         {
             Transform target = _transformComponent[Player.EntityID];
@@ -27,14 +28,17 @@ namespace Bas.Thoth.Topdown
             float deltaX = target.x - transform.x;
             float deltaY = target.y - transform.y;
 
-            float delta = Math.GetDistance(transform.x, transform.y, target.x, target.y);
+            float delta = Math.GetSquaredDistance(transform.x, transform.y, target.x, target.y);
 
-            if (delta < 400)
+            //TODO: Actually write some AI logic so we don't just fly straight at the player till an arbitrary number 
+            if (delta < 400 * 400)
             {
                 return;
             }
 
             transform.rotation = Math.GetAngle(deltaX, deltaY);
+
+            delta = Math.Sqrt(delta);
 
             physics.xVelocity = deltaX / delta * _maxAcceleration;
             physics.yVelocity = deltaY / delta * _maxAcceleration;

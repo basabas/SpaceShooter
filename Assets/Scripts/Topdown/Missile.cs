@@ -36,7 +36,7 @@ namespace Bas.Thoth.Topdown
             float deltaX = target.x - transform.x;
             float deltaY = target.y - transform.y;
 
-            float delta = Math.GetDistance(transform.x, transform.y, target.x, target.y);
+            float delta = Math.GetSquaredDistance(transform.x, transform.y, target.x, target.y);
 
             //if (_overlapResolver.Overlaps(id, targetId, out CollisionResult _))
             if (delta < 1)
@@ -51,6 +51,8 @@ namespace Bas.Thoth.Topdown
             }
 
             transform.rotation = Math.GetAngle(deltaX, deltaY);
+
+            delta = Math.Sqrt(delta);
 
             physics.xVelocity = deltaX / delta * _maxAcceleration;
             physics.yVelocity = deltaY / delta * _maxAcceleration;

@@ -76,7 +76,10 @@ namespace Bas.Thoth
         {
             if (Count > 0)
             {
-                newEntities.ForEach(entity => _sortedEntities.AddEntity(entity));
+                foreach (var entity in newEntities)
+                {
+                    _sortedEntities.AddEntity(entity);
+                }
                 newEntities.Clear();
 
                 if (Count != _args[1])

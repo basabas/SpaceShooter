@@ -75,9 +75,12 @@ namespace Bas.Thoth
 
         public void Clear()
         {
-            for (int i = 0; i < _gridAreas.Length; i++)
+            for (int x = 0; x < Width; x++)
             {
-                _gridAreas[i].Clear();
+                for (int y = 0; y < Height; y++)
+                {
+                    _gridAreas[y * Width + x].Clear();
+                }
             }
         }
 

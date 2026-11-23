@@ -15,6 +15,13 @@ namespace Bas.Thoth
             return (float)System.Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
         }
 
+        public static float GetSquaredDistance(float x1, float y1, float x2, float y2)
+        {
+            float deltaX = x2 - x1;
+            float deltaY = y2 - y1;
+            return deltaX * deltaX + deltaY * deltaY;
+        }
+
         public static (float, float) GetNormalized(float x, float y)
         {
             float length = GetLenght(x, y);

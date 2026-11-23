@@ -16,6 +16,8 @@ namespace Bas.Thoth
 
         public void StartGame()
         {
+            Application.targetFrameRate = Settings.FPS;
+
             _components = Singletons.Get<Components>();
             _entities = Singletons.Get<Entities>();
             _factoryies = new List<Factory>();
@@ -43,7 +45,6 @@ namespace Bas.Thoth
 
         protected virtual void Update()
         {
-            Application.targetFrameRate = Settings.FPS;
             _components.Update(Time.deltaTime);
             _components.FlushDeadEntities(_entities.RemoveList);
             _entities.FlushDeadEntities();

@@ -1,4 +1,5 @@
 using Bas.Thoth.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Collider = Bas.Thoth.Models.Collider;
 using Transform = Bas.Thoth.Models.Transform;
@@ -10,8 +11,6 @@ namespace Bas.Thoth
         private DynamicGrid _grid;
 
         private int _entitiesPerArea = 10;
-
-        private int _currentAmount;
 
         private int _lastAmount;
         private float _intervalTimer;
@@ -43,19 +42,18 @@ namespace Bas.Thoth
             _intervalTimer += deltaTime;
             if (_intervalTimer > 15 && Settings.BalanceEntitiesPerArea)
             {
-                if (Math.Abs(_currentAmount - _lastAmount) > _currentAmount / 400)
+                if (Math.Abs(Count - _lastAmount) > Count / 400)
                 {
-                    if (_currentAmount < _lastAmount)
+                    if (Count < _lastAmount)
                     {
                         _sign = -_sign;
                     }
-                    _entitiesPerArea = Math.Clamp(_entitiesPerArea + _sign, 5, _currentAmount);
+                    _entitiesPerArea = Math.Clamp(_entitiesPerArea + _sign, 5, Count);
                 }
-                _lastAmount = _currentAmount;
+                _lastAmount = Count;
                 _intervalTimer = 0;
             }
 
-            _grid.Clear();
             _grid.AreaCount = Math.Max(1, Count / Math.Clamp(_entitiesPerArea, 1, int.MaxValue));
             _grid.SetBounds(new Bounds(World.Width, World.Height));
 
@@ -67,15 +65,38 @@ namespace Bas.Thoth
             base.Update(deltaTime);
             Parallel.For(0, _grid.AreaCount, DoCollisionCheck);
 
-            foreach (CollisionResult result in _collisionBuffer)
+            List<CollisionResult>[] collisionResults = _collisionBuffer.results;
+            for (int i = 0; i < collisionResults.Length; i++)
             {
-                _physicsResolver.Resolve(result);
+                List<CollisionResult> list = collisionResults[i];
+                for (int j = 0; j < list.Count; j++)
+                {
+                    _physicsResolver.Resolve(list[j]);
+                }
             }
 
-            foreach (CollisionResult result in _overlapBuffer)
+            List<CollisionResult>[] overlapResults = _overlapBuffer.results;
+            for (int i = 0; i < overlapResults.Length; i++)
             {
-                _overlapHandler.HandleTrigger(result);
+                List<CollisionResult> list = overlapResults[i];
+                for (int j = 0, n = list.Count; j < n; j++)
+                {
+                    _overlapHandler.HandleTrigger(list[j]);
+                }
             }
+
+            //OLD, more GC BS
+            //foreach (CollisionResult result in _collisionBuffer)
+            //{
+            //    _physicsResolver.Resolve(result);
+            //}
+
+            //foreach (CollisionResult result in _overlapBuffer)
+            //{
+            //    _overlapHandler.HandleTrigger(result);
+            //}
+
+            _grid.Clear();
 
             if (Settings.DrawGrid)
             {
@@ -107,12 +128,12 @@ namespace Bas.Thoth
 
         public override void UpdateEntity(int entityID, float deltaTime)
         {
-            _overlapResolver.UpdateBounds(entityID);
-            var collider = this[entityID];
+            Collider collider = this[entityID];
             if (collider.colliderType == ColliderType.None)
             {
                 return;
             }
+            _overlapResolver.UpdateBounds(entityID);
             _grid.AddEntity(_transforms[entityID], collider, entityID);
         }
 
