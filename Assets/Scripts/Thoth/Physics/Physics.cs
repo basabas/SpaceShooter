@@ -31,14 +31,32 @@ namespace Bas.Thoth
             physics.rotVelocity += physics.rotAcceleration * deltaTime * 0.5f;
 
             // Boundary checks, TEMPORARY
+            if (float.IsNaN(transform.x))
+            {
+                transform.x = 0;
+            }
+            if (float.IsNaN(transform.y))
+            {
+                transform.y = 0;
+            }
+
+            if (float.IsNaN(physics.xVelocity))
+            {
+                physics.xVelocity = 0;
+            }
+            if (float.IsNaN(physics.yVelocity))
+            {
+                physics.yVelocity = 0;
+            }
+
             if (transform.x + transform.scale > World.Width)
             {
                 transform.x = World.Width - transform.scale;
                 physics.xVelocity = -physics.xVelocity;
             }
-            else if (transform.x - transform.scale < -World.Width)
+            else if (transform.x - transform.scale < 0)
             {
-                transform.x = -World.Width + transform.scale;
+                transform.x = transform.scale;
                 physics.xVelocity = -physics.xVelocity;
             }
 
@@ -47,16 +65,16 @@ namespace Bas.Thoth
                 transform.y = World.Height - transform.scale;
                 physics.yVelocity = -physics.yVelocity;
             }
-            else if (transform.y - transform.scale < -World.Height)
+            else if (transform.y - transform.scale < 0)
             {
-                transform.y = -World.Height + transform.scale;
+                transform.y = transform.scale;
                 physics.yVelocity = -physics.yVelocity;
             }
 
             physics.xAcceleration = 0;
             physics.xAcceleration = 0;
 
-            _transformComponent[entityID] =  transform;
+            _transformComponent[entityID] = transform;
             this[entityID] = physics;
         }
     }

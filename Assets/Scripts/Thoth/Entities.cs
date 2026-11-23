@@ -6,16 +6,18 @@ namespace Bas.Thoth
 {
     public class Entities
     {
+        public int Count => _indexLookup.Count;
+
+        //TODO: Should not be public, but I have no better solution for now. I need to be able to access this from outside the class to flush dead entities.
+        public HashSet<int> RemoveList { get; private set; } = new HashSet<int>();
+        public int this[int index] => _entities[index];
+
         private int[] _entities = new int[10_000];
         private bool[] _alive = new bool[10_000];
 
         private readonly Dictionary<int, int> _indexLookup = new Dictionary<int, int>();
 
         private Stack<int> _availableIDs = new Stack<int>();
-
-        public HashSet<int> RemoveList { get; private set; } = new HashSet<int>();
-
-        public int Count { get; private set; }
 
         public int CreateEntity()
         {
@@ -27,43 +29,44 @@ namespace Bas.Thoth
                 }
             }
 
-            int id = _availableIDs.Pop();
+            int entityID = _availableIDs.Pop();
 
-            if (id >= _alive.Length)
+            if (entityID >= _alive.Length)
             {
-                Array.Resize(ref _alive, id + 1);
+                Array.Resize(ref _alive, entityID + 1);
             }
-            _alive[id] = true;
 
-            if (Count == _entities.Length - 1)
+            if (_alive[entityID])
+            {
+                throw new Exception($"Entity {entityID} is already alive after creation.");
+            }
+            _alive[entityID] = true;
+
+            if (Count == _entities.Length)
             {
                 Array.Resize(ref _entities, Count + 10_000);
             }
-            _entities[Count] = id;
-            _indexLookup[Count] = id;
-            Count++;
-
-            return id;
+            _entities[Count] = entityID;
+            _indexLookup[entityID] = Count;
+            return entityID;
         }
 
         public void FlushDeadEntities()
         {
-            foreach (int id in RemoveList)
+            foreach (int entityID in RemoveList)
             {
-                RemoveEntity(id);
+                if (_indexLookup.Remove(entityID, out int index))
+                {
+                    _availableIDs.Push(entityID);
+
+                    if (Count != index)
+                    {
+                        _entities[index] = _entities[Count];
+                        _indexLookup[_entities[index]] = index;
+                    }
+                }
             }
             RemoveList.Clear();
-        }
-
-        private void RemoveEntity(int entityID)
-        {
-            if (_indexLookup.Remove(entityID, out int index))
-            {
-                Count--;
-                int newId = _entities[Count];
-                _indexLookup[newId] = index;
-                _entities[index] = newId;
-            }
         }
 
         public void DestroyEntity(int entityID)

@@ -4,24 +4,25 @@ namespace Bas.Thoth.Topdown
 {
     public class Missile : Component<MissileInformation>
     {
-        private const float _maxAcceleration = 250;
+        private const float _maxAcceleration = 400;//TODO: Should be velocity
 
         private TransformComponent _transformComponent;
         private Physics _physicsComponent;
         private Entities _entities;
-        private OverlapResolver _overlapResolver;
+        private HealthComponent _healthComponent;
 
         public override void Init()
         {
             _transformComponent = Singletons.Get<TransformComponent>();
             _physicsComponent = Singletons.Get<Physics>();
             _entities = Singletons.Get<Entities>();
-            _overlapResolver = Singletons.Get<OverlapResolver>();
+            _healthComponent = Singletons.Get<HealthComponent>();
         }
 
         public override void UpdateEntity(int id, float deltaTime)
         {
-            int targetId = this[id].target;
+            MissileInformation missile = this[id];
+            int targetId = missile.target;
             if (!_entities.IsAlive(targetId))
             {
                 _entities.DestroyEntity(id);
@@ -37,9 +38,14 @@ namespace Bas.Thoth.Topdown
 
             float delta = Math.GetDistance(transform.x, transform.y, target.x, target.y);
 
-            if (_overlapResolver.Overlaps(id, targetId, out CollisionResult _))
+            //if (_overlapResolver.Overlaps(id, targetId, out CollisionResult _))
+            if (delta < 1)
             {
                 //TODO: spawn explosion or something
+
+                Health health = _healthComponent[targetId];
+                health.health -= missile.damage;
+                _healthComponent[targetId] = health;
                 _entities.DestroyEntity(id);
                 return;
             }

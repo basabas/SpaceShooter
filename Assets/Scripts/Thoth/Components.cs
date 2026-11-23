@@ -9,6 +9,7 @@ namespace Bas.Thoth
         private static readonly Type _componentType = typeof(Component);
 
         private Dictionary<Type, Component> _components = new();
+        private Dictionary<Type, Component> _newComponents = new();
 
         public Component Get(Type type)
         {
@@ -22,8 +23,13 @@ namespace Bas.Thoth
                 return component;
             }
 
+            if (_newComponents.TryGetValue(type, out component))
+            {
+                return component;
+            }
+
             component = (Component)Singletons.Get(type);
-            _components.Add(type, component);
+            _newComponents[type] = component;
             return component;
         }
 
@@ -31,6 +37,11 @@ namespace Bas.Thoth
 
         public void Update(float deltaTime)
         {
+            foreach (var (type, component) in _newComponents)
+            {
+                _components[type] = component;
+            }
+            _newComponents.Clear();
             foreach (Component component in _components.Values)
             {
                 component.Update(deltaTime);
@@ -42,9 +53,20 @@ namespace Bas.Thoth
         {
             foreach (Component component in _components.Values)
             {
-                foreach (int entity in removeList)
+                foreach (int entityID in removeList)
                 {
-                    component.RemoveEntity(entity);
+                    component.RemoveEntity(entityID);
+                }
+            }
+        }
+
+        public void GetComponents(int entityID, List<Component> components)
+        {
+            foreach (Component component in _components.Values)
+            {
+                if (component.HasEntity(entityID))
+                {
+                    components.Add(component);
                 }
             }
         }

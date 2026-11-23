@@ -67,7 +67,6 @@ namespace Bas.Thoth.Topdown
                 float yVelocity = Random.Range(-scale, scale);
                 float rotVelocity = Random.Range(-scale, scale) / 25f;
                 Color color = new Color(1, 1, 1, _debrisAlpha);
-
                 _factory.CreateSpaceDebris(x, y, scale, rot, xVelocity, yVelocity, rotVelocity, color);
             }
 

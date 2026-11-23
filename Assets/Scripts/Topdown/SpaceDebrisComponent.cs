@@ -15,28 +15,28 @@ namespace Bas.Thoth.Topdown
         {
             Transform player = _transformComponent[Player.EntityID];
             Transform transform = _transformComponent[id];
-
-            float right = player.x + World.CameraMaxWidth * .6f;
-            float left = player.x - World.CameraMaxWidth * .6f;
-            float up = player.y + World.CameraMaxWidth * .6f;
-            float down = player.y - World.CameraMaxWidth * .6f;
+            float camSize = World.CameraMaxWidth * .6f;
+            float right = player.x + camSize;
+            float left = player.x - camSize;
+            float up = player.y + camSize;
+            float down = player.y - camSize;
 
             if (transform.x > right)
             {
-                transform.x = left;
+                transform.x -= camSize * 2;
             }
             else if (transform.x < left)
             {
-                transform.x = right;
+                transform.x += camSize * 2;
             }
 
             if (transform.y > up)
             {
-                transform.y = down;
+                transform.y -= camSize * 2;
             }
             else if (transform.y < down)
             {
-                transform.y = up;
+                transform.y += camSize * 2;
             }
 
             _transformComponent[id] = transform;

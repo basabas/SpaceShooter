@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: PrefabManager
   m_EditorClassIdentifier: Bas::Bas.Game.Topdown.PrefabManager
   prefabs:
+  - {fileID: 11400000, guid: e2f36bb08154db24faa71096b0dc35e6, type: 2}
   - {fileID: 11400000, guid: b8d317a16d6c52942a84e0200a467b1d, type: 2}
   - {fileID: 11400000, guid: 2fb959e985c81244d988beef0ebf72d0, type: 2}
+  - {fileID: 11400000, guid: 6e2430d9c65224a48a55cb96c20175ad, type: 2}
   - {fileID: 11400000, guid: 6518fd8a3e1f9964d835a753cd1ea79e, type: 2}
   - {fileID: 11400000, guid: 808ea93d3fe107a4fbfbf1d7695c4223, type: 2}
   - {fileID: 11400000, guid: 0ffa2c8a3bc960441a8ac1fadf53e61a, type: 2}

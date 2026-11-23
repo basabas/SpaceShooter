@@ -60,11 +60,24 @@ namespace Bas.Thoth
 
         public int CreateEntity(string prefabName)
         {
-            if (prefabs.TryGetValue(prefabName, out EntityPrefab prefab))
+
+            if (prefabs == null)
             {
-                return CreateEntity(prefab);
+                Logging.LogError("Prefabs have not been set. Please call SetPrefabs() before creating entities from prefabs.");
+                return -1;
             }
-            throw new Exception($"Could not find Prefab with name \'{prefabName}\n, are you sure you spelled it right?");
+            try
+            {
+                if (prefabs.TryGetValue(prefabName, out EntityPrefab prefab))
+                {
+                    return CreateEntity(prefab);
+                }
+            }
+            catch (NullReferenceException e)
+            {
+                Logging.LogError($"Prefab {prefabName} not found\n. Make sure to call {nameof(SetPrefabs)} before creating entities.\nAvailable prefabs: {string.Join(", ", prefabs.Keys)}\n{e}");
+            }
+            throw new Exception($"Could not find Prefab with name \'{prefabName}\', are you sure you spelled it right?");
         }
 
         public void UpdateComponentValue<T, TU>(int id, Func<TU, TU> updateFunction) where T : Component<TU> where TU : struct

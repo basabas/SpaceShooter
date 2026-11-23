@@ -17,7 +17,7 @@ namespace Bas.Thoth
         {
             if (!_indexLookup.TryAdd(entityID, Count))
             {
-                throw new Exception($"Collection already contains id:{entityID}");
+                throw new Exception($"[{GetType().Name}]Collection already contains id:{entityID}");
             }
             if (_entities.Length == Count)
             {
@@ -34,8 +34,12 @@ namespace Bas.Thoth
             {
                 return false;
             }
-            _entities[index] = _entities[Count];
-            _indexLookup[_entities[index]] = index;
+            if (Count != index)
+            {
+                _entities[index] = _entities[Count];
+                _indexLookup[_entities[index]] = index;
+            }
+
             return true;
         }
 

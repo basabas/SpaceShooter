@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp:Bas.Game.Topdown:Settings
   _drawColliders: 0
   _drawAABB: 0
+  _drawGrid: 0
+  _fps: 6000
+  _balanceEntitiesPerArea: 1
+  _entitiesPerArea: 14

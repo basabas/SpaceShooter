@@ -6,33 +6,25 @@ namespace Bas.Thoth.Topdown
     {
         private TopdownFactory _factory;
 
-        private int _playerId;
-
         protected override void PostStart()
         {
-            _playerId = _factory.CreatePlayer();
-            _factory.CreateTestAnimatedThing(50, 0, 100);
-            CreateTestMissiles(20_000, 25);
+            _factory.CreatePlayer();
+            _factory.CreateTestAnimatedThing(World.CenterX - 250, World.CenterY + 500, 100);
+            CreateTestSpawners();
             _factory.CreateBackground();
+        }
+
+        private void CreateTestSpawners()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                _factory.CreateEnemySpawner(Random.Range(0, World.Width), Random.Range(0, World.Height), 3f, 1000);
+            }
         }
 
         protected override IEnumerable<Factory> GetFactories()
         {
             return new[] { _factory = Singletons.Get<TopdownFactory>() };
-        }
-
-        private List<int> CreateTestMissiles(int amount, float scale)
-        {
-            List<int> result = new List<int>();
-            for (int i = 0; i < amount; i++)
-            {
-                float x = UnityEngine.Random.Range(-World.Width, World.Width);
-                float y = UnityEngine.Random.Range(-World.Height, World.Height);
-                x = UnityEngine.Random.Range(-World.CameraMaxWidth, World.CameraMaxWidth);
-                y = UnityEngine.Random.Range(-World.CameraMaxWidth, World.CameraMaxWidth);
-                result.Add(_factory.CreateMissile(x, y, _playerId, scale));
-            }
-            return result;
         }
     }
 }

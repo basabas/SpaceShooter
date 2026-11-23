@@ -8,7 +8,44 @@ namespace Bas.Thoth.Topdown
     {
         public int CreatePlayer()
         {
-            return CreateEntity("Player");
+            int id = CreateEntity("Player");
+            UpdateComponentValue<TransformComponent, Transform>(id, transform =>
+            {
+                transform.x = World.CenterX;
+                transform.y = World.CenterY;
+                return transform;
+            });
+            const float turretDistance = 40;
+            CreateTurret(id, Mathf.Cos(054 * Mathf.Deg2Rad) * turretDistance, Mathf.Sin(054 * Mathf.Deg2Rad) * turretDistance);
+            CreateTurret(id, Mathf.Cos(126 * Mathf.Deg2Rad) * turretDistance, Mathf.Sin(126 * Mathf.Deg2Rad) * turretDistance);
+            CreateTurret(id, Mathf.Cos(198 * Mathf.Deg2Rad) * turretDistance, Mathf.Sin(198 * Mathf.Deg2Rad) * turretDistance);
+            CreateTurret(id, Mathf.Cos(270 * Mathf.Deg2Rad) * turretDistance, Mathf.Sin(270 * Mathf.Deg2Rad) * turretDistance);
+            CreateTurret(id, Mathf.Cos(342 * Mathf.Deg2Rad) * turretDistance, Mathf.Sin(342 * Mathf.Deg2Rad) * turretDistance);
+            return id;
+        }
+
+        public int CreateTurret(int playerID, float x, float y)
+        {
+            int id = CreateEntity("Turret");
+
+            Transform playerTransform = Singletons.Get<TransformComponent>()[playerID];
+
+            UpdateComponentValue<RocketTurret, RocketTurretInformation>(id, turret =>
+            {
+                turret.x = x;
+                turret.y = y;
+                turret.fireTime = Random.Range(0f, 1f / turret.fireSpeed);
+                return turret;
+            });
+
+            UpdateComponentValue<TransformComponent, Transform>(id, transform =>
+            {
+                transform.x = playerTransform.x + x;
+                transform.y = playerTransform.y + y;
+                transform.rotation = Math.GetAngle(x, y);
+                return transform;
+            });
+            return id;
         }
 
         public int CreateTestAnimatedThing(float x, float y, float scale)
@@ -45,12 +82,32 @@ namespace Bas.Thoth.Topdown
         }
 
         public int CreateBackground() => CreateEntity(typeof(BackGround));
+        public int CreateEnemySpawner(float x, float y, float rate, int max)
+        {
+            int id = CreateEntity(typeof(EnemySpawner));
+            UpdateComponentValue<TransformComponent, Transform>(id, transform =>
+            {
+                transform.x = x;
+                transform.y = y;
+                return transform;
+            });
+            UpdateComponentValue<EnemySpawner, EnemySpawn>(id, spawnInfo =>
+            {
+                spawnInfo.x = x;
+                spawnInfo.y = y;
+                spawnInfo.rate = rate;
+                spawnInfo.spawnTimer = Random.Range(0f, 1f / spawnInfo.rate);
+                spawnInfo.max = max;
+                return spawnInfo;
+            });
+            return id;
+        }
 
-        public int CreateMissile(float x, float y, int targetId, float scale)
+        public int CreateMissile(float x, float y, int targetId, float scale, int damage)
         {
             int id = CreateEntity("Missile");
 
-            Transform target = Singletons.Get<TransformComponent>()[id];
+            Transform target = Singletons.Get<TransformComponent>()[targetId];
 
             float dirX = target.x - x;
             float dirY = target.y - y;
@@ -78,6 +135,7 @@ namespace Bas.Thoth.Topdown
             UpdateComponentValue<Missile, MissileInformation>(id, missile =>
             {
                 missile.target = targetId;
+                missile.damage = damage;
                 return missile;
             });
             return id;
@@ -125,6 +183,36 @@ namespace Bas.Thoth.Topdown
             //    entityType = EntityType.AirPolution,
             //    color = new Color(1, 1, 1, .3f)
             //};
+            return id;
+        }
+
+        public int CreateEnemy(float x, float y)
+        {
+            int id = CreateEntity("Enemy");
+
+            Transform target = Singletons.Get<TransformComponent>()[Player.EntityID];
+
+            float dirX = target.x - x;
+            float dirY = target.y - y;
+            float rot = Math.GetAngle(dirX, dirY);
+
+            UpdateComponentValue<TransformComponent, Transform>(id, transform =>
+            {
+                transform.x = x;
+                transform.y = y;
+                transform.rotation = rot;
+                return transform;
+            });
+
+            (float xNorm, float yNorm) = Math.GetNormalized(dirX, dirY);
+
+            UpdateComponentValue<Physics, PhysicsInformation>(id, physics =>
+            {
+                float length = Math.GetLenght(physics.xVelocity, physics.yVelocity);
+                physics.xVelocity = xNorm * length;
+                physics.yVelocity = yNorm * length;
+                return physics;
+            });
             return id;
         }
     }

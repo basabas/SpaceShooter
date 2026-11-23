@@ -124,8 +124,12 @@ namespace Bas.Thoth
 
         public override bool RemoveEntity(int entityID)
         {
-            _sortedEntities.RemoveEntity(entityID);
-            return base.RemoveEntity(entityID);
+            if (base.RemoveEntity(entityID))
+            {
+                _sortedEntities.RemoveEntity(entityID);
+                return true;
+            }
+            return false;
         }
 
         void IDisposable.Dispose()

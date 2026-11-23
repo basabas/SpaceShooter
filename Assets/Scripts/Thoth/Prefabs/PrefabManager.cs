@@ -54,8 +54,17 @@ namespace Bas.Thoth
             return true;
         }
 
+        public string GetPrefabName(int prefabIndex)
+        {
+            if (prefabIndex < 0 || prefabIndex >= prefabs.Length)
+            {
+                return $"Invalid Prefab Index: {prefabIndex}";
+            }
+            return prefabs[prefabIndex].name;
+        }
+
         private Vector4 ToVector4(Rect rect) => new Vector4(rect.x, rect.y, rect.x + rect.width, rect.y + rect.height);
-        public Texture2D TextureFromSprite(Sprite sprite)
+        private Texture2D TextureFromSprite(Sprite sprite)
         {
             if (sprite.rect.width != sprite.texture.width)
             {

@@ -24,7 +24,7 @@ namespace Bas.Thoth
         private ParallelCollisionBuffer _overlapBuffer;
 
         private PhysicsResolver _physicsResolver;
-        private OverlapHandler _triggerHandler;
+        private OverlapHandler _overlapHandler;
 
         public override void Init()
         {
@@ -34,13 +34,14 @@ namespace Bas.Thoth
             _collisionBuffer = new ParallelCollisionBuffer(128);
             _overlapBuffer = new ParallelCollisionBuffer(128);
             _physicsResolver = Singletons.Get<PhysicsResolver>();
-            _triggerHandler = Singletons.Get<OverlapHandler>();
+            _overlapHandler = Singletons.Get<OverlapHandler>();
+            _entitiesPerArea = Settings.EntitiesPerArea;
         }
 
         public override void Update(float deltaTime)
         {
             _intervalTimer += deltaTime;
-            if (_intervalTimer > 15)
+            if (_intervalTimer > 15 && Settings.BalanceEntitiesPerArea)
             {
                 if (Math.Abs(_currentAmount - _lastAmount) > _currentAmount / 400)
                 {
@@ -56,7 +57,7 @@ namespace Bas.Thoth
 
             _grid.Clear();
             _grid.AreaCount = Math.Max(1, Count / Math.Clamp(_entitiesPerArea, 1, int.MaxValue));
-            _grid.SetBounds(new Bounds(World.Width, World.Height * 2));
+            _grid.SetBounds(new Bounds(World.Width, World.Height));
 
             _collisionBuffer.Resize(_grid.AreaCount);
             _overlapBuffer.Resize(_grid.AreaCount);
@@ -73,18 +74,46 @@ namespace Bas.Thoth
 
             foreach (CollisionResult result in _overlapBuffer)
             {
-                _triggerHandler.HandleTrigger(result);
+                _overlapHandler.HandleTrigger(result);
+            }
+
+            if (Settings.DrawGrid)
+            {
+                DebugDrawGrid();
+            }
+        }
+
+        private void DebugDrawGrid()
+        {
+            UnityEngine.Debug.DrawLine(UnityEngine.Vector3.zero, UnityEngine.Vector3.up * World.Height, UnityEngine.Color.red);
+            UnityEngine.Debug.DrawLine(UnityEngine.Vector3.zero, UnityEngine.Vector3.right * World.Width, UnityEngine.Color.red);
+            UnityEngine.Debug.DrawLine(UnityEngine.Vector3.up * World.Height, UnityEngine.Vector3.right * World.Width + UnityEngine.Vector3.up * World.Height, UnityEngine.Color.red);
+            UnityEngine.Debug.DrawLine(UnityEngine.Vector3.right * World.Width, UnityEngine.Vector3.right * World.Width + UnityEngine.Vector3.up * World.Height, UnityEngine.Color.red);
+
+            float areaWidth = World.Width / _grid.Width;
+            float areaHeight = World.Height / _grid.Height;
+            for (int y = 1; y < _grid.Height; y++)
+            {
+                UnityEngine.Vector3 height = UnityEngine.Vector3.up * areaHeight * y;
+                UnityEngine.Debug.DrawLine(height, height + UnityEngine.Vector3.right * World.Width, UnityEngine.Color.green);
+            }
+
+            for (int x = 1; x < _grid.Width; x++)
+            {
+                UnityEngine.Vector3 width = UnityEngine.Vector3.right * areaWidth * x;
+                UnityEngine.Debug.DrawLine(width, width + UnityEngine.Vector3.up * World.Height, UnityEngine.Color.green);
             }
         }
 
         public override void UpdateEntity(int entityID, float deltaTime)
         {
             _overlapResolver.UpdateBounds(entityID);
-            if (this[entityID].colliderType == ColliderType.None)
+            var collider = this[entityID];
+            if (collider.colliderType == ColliderType.None)
             {
                 return;
             }
-            _grid.AddEntity(_transforms[entityID], entityID);
+            _grid.AddEntity(_transforms[entityID], collider, entityID);
         }
 
         private void DoCollisionCheck(int index)

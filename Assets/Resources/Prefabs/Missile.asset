@@ -41,7 +41,7 @@ MonoBehaviour:
     - type:
         typeName: Bas.Thoth.Topdown.MissileInformation
         assemblyName: Bas.Topdown, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      json: '{"target":0}'
+      json: '{"target":0,"damage":200}'
     - type:
         typeName: Bas.Thoth.Models.Collider
         assemblyName: Bas.Thoth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null

@@ -6,6 +6,19 @@ namespace Bas.Thoth
 {
     public class ParallelCollisionBuffer : IEnumerable<CollisionResult>
     {
+        public int Count
+        {
+            get
+            {
+                int count = 0;
+                for (int i = 0; i < results.Length; i++)
+                {
+                    count += results[i].Count;
+                }
+                return count;
+            }
+        }
+
         public List<CollisionResult>[] results;
 
         public ParallelCollisionBuffer(int size)

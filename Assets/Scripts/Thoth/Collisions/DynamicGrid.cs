@@ -4,22 +4,24 @@ namespace Bas.Thoth
 {
     public class DynamicGrid
     {
-        private static readonly int _maxWidth = 400;
-        private static readonly int _maxHeight = 400;
+        private static readonly int _maxSize = 400;
 
         public GridArea this[int index] => _gridAreas[index];
         public int AreaCount
         {
-            get => _width * _height;
+            get => Width * Height;
             set
             {
-                _width = Math.Clamp(Math.CeilToInt(Math.Sqrt(value)), 1, _maxWidth);
-                _height = (value / _width);
+                int width = Math.Clamp(Math.CeilToInt(Math.Sqrt(value)), 1, _maxSize);
+                if (Width != width)
+                {
+                    Width = Height = width;
+                }
             }
         }
 
-        public int _width;
-        public int _height;
+        public int Width { get; private set; }
+        public int Height { get; private set; }
 
         private readonly GridArea[] _gridAreas;
 
@@ -31,49 +33,60 @@ namespace Bas.Thoth
 
         public DynamicGrid()
         {
-            _width = 1;
-            _height = 1;
-            _gridAreas = new GridArea[_maxWidth * _maxHeight];
+            Width = 1;
+            Height = 1;
+            _gridAreas = new GridArea[_maxSize * _maxSize];
             for (int i = 0; i < _gridAreas.Length; i++)
             {
                 _gridAreas[i] = new GridArea(512);
             }
         }
 
-        public void AddEntity(Models.Transform transform, int id)
+        public void AddEntity(Transform transform, Collider collider, int id)
         {
-            int x = (int)((transform.x + _xBounds - transform.scale) / _areaWidth);
-            int xMax = (int)((transform.x + _xBounds + transform.scale) / _areaWidth);
-
-            int yMax = (int)((transform.y + _yBounds + transform.scale) / _areaHeight);
-            int y = (int)((transform.y + _yBounds - transform.scale) / _areaHeight);
-
-            for (; x <= xMax; x++)
+            float xScale;
+            float yScale;
+            if (collider.colliderShape == ColliderShape.Circle)
             {
-                for (; y <= yMax; y++)
+                xScale = yScale = collider.radius * transform.scale;
+            }
+            else
+            {
+                xScale = collider.width * transform.scale;
+                yScale = collider.height * transform.scale;
+            }
+            int x = (int)((transform.x - xScale) / _areaWidth);
+            int xMax = (int)((transform.x + xScale) / _areaWidth);
+
+            int yMax = (int)((transform.y + yScale) / _areaHeight);
+            int y = (int)((transform.y - yScale) / _areaHeight);
+
+            if (x < 0) x = 0;
+            if (y < 0) y = 0;
+
+            for (int xx = x; xx <= xMax; xx++)
+            {
+                for (int yy = y; yy <= yMax; yy++)
                 {
-                    _gridAreas[y * _width + x].Add(id);
+                    _gridAreas[yy * Width + xx].Add(id);
                 }
             }
         }
 
         public void Clear()
         {
-            for (int x = 0; x < _width; x++)
+            for (int i = 0; i < _gridAreas.Length; i++)
             {
-                for (int y = 0; y < _height; y++)
-                {
-                    _gridAreas[x + y * _width].Clear();
-                }
+                _gridAreas[i].Clear();
             }
         }
 
         public void SetBounds(Bounds bounds)
         {
-            _xBounds = bounds.width / 2;
-            _yBounds = bounds.height / 2;
-            _areaWidth = _xBounds * 2 / _width;
-            _areaHeight = _yBounds * 2 / _height;
+            _xBounds = bounds.width;
+            _yBounds = bounds.height;
+            _areaWidth = _xBounds / Width;
+            _areaHeight = _yBounds / Height;
         }
     }
 }

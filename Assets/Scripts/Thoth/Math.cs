@@ -65,9 +65,9 @@ namespace Bas.Thoth
             return max;
         }
 
-        public static int CeilToInt(float x) => ((int)x) + 1;
+        public static int CeilToInt(float x) => x % 1 == 0 ? (int)x : (int)x + 1;
 
-        public static int RoudToInt(float x) => (int)(x + 0.5f);
+        public static int RoudToInt(float x) => x % 1 == 0 ? (int)x : (int)(x + 0.5f);
         public static int FloorToInt(float x) => (int)x;
 
         public static float Pow(float x, int y) => (float)System.Math.Pow(x, y);

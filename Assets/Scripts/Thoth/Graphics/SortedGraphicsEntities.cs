@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Bas.Debug;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 
 namespace Bas.Thoth
 {
@@ -47,7 +49,6 @@ namespace Bas.Thoth
                 _indexLookup[id] = index;
                 _entities[index] = id;
 
-
                 index = typeStart;
             }
 
@@ -62,35 +63,64 @@ namespace Bas.Thoth
                 Count--;
                 for (int type = _graphics[entityID].textureIndex - 1; type > -1; type--)
                 {
+                    #region something goes wrong here, need to figure out how to fix it
                     int typeEnd = _typeStarts[type] - 1;
                     _typeStarts[type] = typeEnd;
                     if (type > 0 && typeEnd == _typeStarts[type - 1] - 1)
                     {
                         continue;
                     }
-
                     int id = _entities[typeEnd];
-                    _indexLookup[id] = index;
-                    _entities[index] = id;
+                    if (id != entityID)
+                    {
+                        _indexLookup[id] = index;
+                        _entities[index] = id;
+                    }
 
                     index = typeEnd;
+                    #endregion
                 }
 
                 int lastId = _entities[Count];
                 _indexLookup[lastId] = index;
                 _entities[index] = lastId;
             }
+            else
+            {
+                Logging.LogError($"Entity {entityID} not found in SortedGraphicsEntities. Current Count: {Count}\n{this}");
+            }
         }
 
         public override string ToString()
         {
             StringBuilder builder = new StringBuilder();
-            builder.AppendLine($"SortedEntities - Count:{Count}, entities.Length:{_entities.Length}");
+            builder.AppendLine($"SortedEntities - Count:{Count}, indexLookup.Count:{_indexLookup.Count}, entities.Length:{_entities.Length}");
+
+            string[] textureNames = new string[_typeStarts.Length * 20];
+
+            int textureNameLength = 1;
+            for (int i = 0; i < textureNames.Length; i++)
+            {
+                textureNames[i] = Resources.Load<PrefabManager>("PrefabManager").GetPrefabName(i);
+                if (textureNames[i].Length > textureNameLength)
+                {
+                    textureNameLength = textureNames[i].Length;
+                }
+            }
+
+            for (int i = 0; i < textureNames.Length; i++)
+            {
+                if (textureNames[i].Length < textureNameLength)
+                {
+                    int lengthToPad = textureNameLength - textureNames[i].Length;
+                    textureNames[i] = textureNames[i].PadRight(lengthToPad) + "\t";
+                }
+            }
 
             for (int i = 0; i < Count; i++)
             {
                 int id = _entities[i];
-                builder.AppendLine($"{i} - {_graphics[id].textureIndex}: id {id}, lookup:{(_indexLookup.TryGetValue(id, out int index) ? index : -1)}");
+                builder.AppendLine($"{i:000000} - {_graphics[id].textureIndex:000} - {textureNames[_graphics[id].textureIndex]}: id {id:000000}\t, lookup:{(_indexLookup.TryGetValue(id, out int index) ? index : -1)}");
             }
             return builder.ToString();
         }

@@ -11,23 +11,33 @@ namespace Bas.Thoth.Topdown
         private TransformComponent _transforms;
         private TopdownFactory _factory;
         private OverlapHandler _overlapHandler;
+        private Enemy _enemies;
+        private HealthComponent _healthComponent;
 
         public override void Init()
         {
             _transforms = Singletons.Get<TransformComponent>();
             _factory = Singletons.Get<TopdownFactory>();
             _overlapHandler = Singletons.Get<OverlapHandler>();
+            _enemies = Singletons.Get<Enemy>();
+            _healthComponent = Singletons.Get<HealthComponent>();
         }
 
         public void OnCollision(CollisionResult collisionResult)
         {
             if (_enemiesInRange.TryGetValue(collisionResult.id, out HashSet<int> enemies))
             {
-                enemies.Add(collisionResult.otherId);
+                if (_enemies.HasEntity(collisionResult.otherId))
+                {
+                    enemies.Add(collisionResult.otherId);
+                }
             }
             else if (_enemiesInRange.TryGetValue(collisionResult.otherId, out enemies))
             {
-                enemies.Add(collisionResult.id);
+                if (_enemies.HasEntity(collisionResult.id))
+                {
+                    enemies.Add(collisionResult.id);
+                }
             }
             else
             {
@@ -51,28 +61,33 @@ namespace Bas.Thoth.Topdown
         public override void UpdateEntity(int entityID, float deltaTime)
         {
             RocketTurretInformation turret = this[entityID];
+            Transform transform = _transforms[entityID];
 
             if (turret.fireTime <= 0)
             {
-                Transform transform = _transforms[entityID];
-                foreach (int targetID in _enemiesInRange.Keys)
+                foreach (int targetID in _enemiesInRange[entityID])
                 {
-                    Transform targetTransform = _transforms[targetID];
+                    Health health = _healthComponent[targetID];
 
-                    if (Transform.Distance(transform, targetTransform) < turret.range)
+                    if (health.virtualHealth > 0)
                     {
-                        Shoot(targetID, transform);
+                        _factory.CreateMissile(transform.x, transform.y, targetID, 4f, turret.damage);
+                        turret.fireTime += 1f / turret.fireSpeed;
+                        health.virtualHealth -= turret.damage;
+                        _healthComponent[targetID] = health;
+                        break;
                     }
                 }
             }
-
+            _enemiesInRange[entityID].Clear();
             turret.fireTime -= deltaTime;
             this[entityID] = turret;
-        }
 
-        public void Shoot(int targetID, Transform transform)
-        {
-            _factory.CreateMissile(transform.x, transform.y, targetID, .3f);
+            Transform playerTransform = _transforms[Player.EntityID];
+            transform.x = turret.x + playerTransform.x;
+            transform.y = turret.y + playerTransform.y;
+            _transforms[entityID] = transform;
+
         }
     }
 }
