@@ -51,7 +51,7 @@ MonoBehaviour:
     - type:
         typeName: Bas.Thoth.Topdown.Health
         assemblyName: Bas.Topdown, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      json: '{"health":100,"virtualHealth":100}'
+      json: '{"health":450,"virtualHealth":450}'
   graphicsInformation:
     fps: 0
     frames:

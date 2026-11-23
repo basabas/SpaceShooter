@@ -27,13 +27,21 @@ namespace Bas.Thoth.Topdown
 
         public override void UpdateEntity(int id, float deltaTime)
         {
-            Transform transform = _transformComponent[id];
-            _cameraTransform.position = new Vector3(transform.x, transform.y, _zValue);
-
             zoom = Math.Clamp(zoom - Mouse.current.scroll.value.y / 100f, 0.1f, 1);
 
-            float height = World.CameraMaxWidth / _camera.aspect;
-            _camera.orthographicSize = height / 2 * zoom;
+            float height = World.CameraMaxWidth / _camera.aspect / 2 * zoom;
+            float width = World.CameraMaxWidth / 2 * zoom;
+            _camera.orthographicSize = height;
+
+            Vector3 newCamPosition = _cameraTransform.position;
+            Transform transform = _transformComponent[id];
+
+            newCamPosition.x = Math.Clamp(transform.x, width, World.Width - width);
+            newCamPosition.y = Math.Clamp(transform.y, height, World.Height - height);
+            _cameraTransform.position = newCamPosition;
+
+
+            //_cameraTransform.position = new Vector3(transform.x, transform.y, _zValue);
         }
     }
 }

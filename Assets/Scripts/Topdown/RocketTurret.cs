@@ -61,6 +61,7 @@ namespace Bas.Thoth.Topdown
         public override void UpdateEntity(int entityID, float deltaTime)
         {
             RocketTurretInformation turret = this[entityID];
+            Transform playerTransform = _transforms[Player.EntityID];
             Transform transform = _transforms[entityID];
 
             if (turret.fireTime <= 0)
@@ -83,11 +84,9 @@ namespace Bas.Thoth.Topdown
             turret.fireTime -= deltaTime;
             this[entityID] = turret;
 
-            Transform playerTransform = _transforms[Player.EntityID];
             transform.x = turret.x + playerTransform.x;
             transform.y = turret.y + playerTransform.y;
             _transforms[entityID] = transform;
-
         }
     }
 }

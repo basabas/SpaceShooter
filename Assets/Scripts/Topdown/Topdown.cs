@@ -12,13 +12,15 @@ namespace Bas.Thoth.Topdown
             _factory.CreateTestAnimatedThing(World.CenterX - 250, World.CenterY + 500, 100);
             CreateTestSpawners();
             _factory.CreateBackground();
+
+            _factory.CreateBaseDefense(World.CenterX, -800);
         }
 
         private void CreateTestSpawners()
         {
             for (int i = 0; i < 100; i++)
             {
-                _factory.CreateEnemySpawner(Random.Range(0, World.Width), Random.Range(0, World.Height), 3f, 1000);
+                _factory.CreateEnemySpawner(Random.Range(0, World.Width), Random.Range(0, World.Height), 1f, 10);
             }
         }
 

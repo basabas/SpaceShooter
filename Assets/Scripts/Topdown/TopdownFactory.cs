@@ -186,6 +186,18 @@ namespace Bas.Thoth.Topdown
             return id;
         }
 
+        public int CreateBaseDefense(float x, float y)
+        {
+            int id = CreateEntity("BaseDefense");
+            UpdateComponentValue<TransformComponent, Transform>(id, transform =>
+            {
+                transform.x = x;
+                transform.y = y;
+                return transform;
+            });
+            return id;
+        }
+
         public int CreateEnemy(float x, float y)
         {
             int id = CreateEntity("Enemy");
