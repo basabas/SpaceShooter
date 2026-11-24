@@ -5,7 +5,7 @@ namespace Bas.Thoth.Topdown
 {
     public class Player : Component
     {
-        public static int EntityID { get; private set; }
+        public static int EntityID { get; private set; } = -1;
 
         private const float acceleration = 1000;
 

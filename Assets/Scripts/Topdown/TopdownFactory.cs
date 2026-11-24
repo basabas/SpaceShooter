@@ -4,7 +4,7 @@ using Transform = Bas.Thoth.Models.Transform;
 
 namespace Bas.Thoth.Topdown
 {
-    public class TopdownFactory : Factory
+    public class TopdownFactory : Bas.Thoth.Factory
     {
         public int CreatePlayer()
         {
@@ -13,14 +13,9 @@ namespace Bas.Thoth.Topdown
             {
                 transform.x = World.CenterX;
                 transform.y = World.CenterY;
+                transform.scale = 12f;
                 return transform;
             });
-            const float turretDistance = 40;
-            CreateTurret(id, Mathf.Cos(054 * Mathf.Deg2Rad) * turretDistance, Mathf.Sin(054 * Mathf.Deg2Rad) * turretDistance);
-            CreateTurret(id, Mathf.Cos(126 * Mathf.Deg2Rad) * turretDistance, Mathf.Sin(126 * Mathf.Deg2Rad) * turretDistance);
-            CreateTurret(id, Mathf.Cos(198 * Mathf.Deg2Rad) * turretDistance, Mathf.Sin(198 * Mathf.Deg2Rad) * turretDistance);
-            CreateTurret(id, Mathf.Cos(270 * Mathf.Deg2Rad) * turretDistance, Mathf.Sin(270 * Mathf.Deg2Rad) * turretDistance);
-            CreateTurret(id, Mathf.Cos(342 * Mathf.Deg2Rad) * turretDistance, Mathf.Sin(342 * Mathf.Deg2Rad) * turretDistance);
             return id;
         }
 
