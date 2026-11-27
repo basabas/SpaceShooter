@@ -31,21 +31,12 @@ namespace Bas.Thoth
 
             int entityID = _availableIDs.Pop();
 
-            if (entityID >= _alive.Length)
-            {
-                Array.Resize(ref _alive, entityID + 1);
-            }
-
-            if (_alive[entityID])
-            {
-                throw new Exception($"Entity {entityID} is already alive after creation.");
-            }
-            _alive[entityID] = true;
-
             if (Count == _entities.Length)
             {
                 Array.Resize(ref _entities, Count + 10_000);
+                Array.Resize(ref _alive, Count + 10_000);
             }
+            _alive[entityID] = true;
             _entities[Count] = entityID;
             _indexLookup[entityID] = Count;
             return entityID;

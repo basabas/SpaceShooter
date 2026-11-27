@@ -6,6 +6,7 @@ using Transform = Bas.Thoth.Models.Transform;
 
 namespace Bas.Thoth
 {
+    [Priority(Priority.Collisions)]
     public class Collision : Component<Collider>
     {
         private DynamicGrid _grid;
@@ -84,17 +85,6 @@ namespace Bas.Thoth
                     _overlapHandler.HandleTrigger(list[j]);
                 }
             }
-
-            //OLD, more GC BS
-            //foreach (CollisionResult result in _collisionBuffer)
-            //{
-            //    _physicsResolver.Resolve(result);
-            //}
-
-            //foreach (CollisionResult result in _overlapBuffer)
-            //{
-            //    _overlapHandler.HandleTrigger(result);
-            //}
 
             _grid.Clear();
 

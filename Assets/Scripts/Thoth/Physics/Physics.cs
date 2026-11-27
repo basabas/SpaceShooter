@@ -2,6 +2,7 @@ using Bas.Thoth.Models;
 
 namespace Bas.Thoth
 {
+    [Priority(Priority.Physics)]
     public class Physics : Component<PhysicsInformation>
     {
         private TransformComponent _transformComponent;

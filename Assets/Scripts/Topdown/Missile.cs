@@ -2,6 +2,7 @@ using Bas.Thoth.Models;
 
 namespace Bas.Thoth.Topdown
 {
+    [Priority(Priority.Rest)]
     public class Missile : Component<MissileInformation>
     {
         private const float _maxAcceleration = 400;//TODO: Should be velocity

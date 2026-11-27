@@ -6,6 +6,8 @@ using UnityEngine;
 
 namespace Bas.Thoth
 {
+
+    [Priority(Priority.Graphics)]
     public class Graphics : Component<DrawInformation>, IDisposable
     {
         private const string _atlasID = "atlas";

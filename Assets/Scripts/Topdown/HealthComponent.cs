@@ -1,5 +1,6 @@
 ﻿namespace Bas.Thoth.Topdown
 {
+    [Priority(Priority.Rest)]
     public class HealthComponent : Component<Health>
     {
         private Entities _entities;

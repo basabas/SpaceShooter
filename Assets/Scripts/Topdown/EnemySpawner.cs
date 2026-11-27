@@ -1,5 +1,6 @@
 ﻿namespace Bas.Thoth.Topdown
 {
+    [Priority(Priority.Rest)]
     public class EnemySpawner : Component<EnemySpawn>
     {
         private TopdownFactory _factory;

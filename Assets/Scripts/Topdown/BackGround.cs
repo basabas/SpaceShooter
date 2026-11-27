@@ -6,6 +6,7 @@ using Transform = Bas.Thoth.Models.Transform;
 namespace Bas.Thoth.Topdown
 {
     //TODO: magic numbers
+    [Priority(Priority.Rest)]
     public class BackGround : Component
     {
         private const int _starAmount = 16_000;//8_000

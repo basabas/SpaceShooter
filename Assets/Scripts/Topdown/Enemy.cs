@@ -2,6 +2,7 @@
 
 namespace Bas.Thoth.Topdown
 {
+    [Priority(Priority.Rest)]
     public class Enemy : Component
     {
         private const float _maxAcceleration = 250;
